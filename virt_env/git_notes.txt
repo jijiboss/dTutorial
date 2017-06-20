@@ -9,6 +9,9 @@ May want to consider this CLI option as well
 	https://www.youtube.com/watch?v=rWhnsx4PDQU
 	
 
+			COMMIT => SYNCH
+
+
 Starting a new repo
 	-	To create a new GIT repo using desktop use "Add" instead of "Create"
 	-	Do the initial commit which will take quite a while
@@ -18,3 +21,9 @@ Starting a new repo
 Creating a branch
 	-	Click on the create branch icon to create a new branch
 	-	Publish button at the top right to populate on the git site
+
+Merging the branch to the Master
+	-	Pull Request button at the top right and submit
+	-	On github.com go to the "pull requests" tab and click on the pull request
+	-	Should see the green "Merge pull request" button and click on it and Confirm Merge
+	
