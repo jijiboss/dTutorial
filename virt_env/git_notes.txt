@@ -1,0 +1,20 @@
+
+For command line, this iis a good writeup
+	http://product.hubspot.com/blog/git-and-github-tutorial-for-beginners
+
+Youtube which was OK
+	https://www.youtube.com/watch?v=kFix7UDJ7LA
+
+May want to consider this CLI option as well
+	https://www.youtube.com/watch?v=rWhnsx4PDQU
+	
+
+Starting a new repo
+	-	To create a new GIT repo using desktop use "Add" instead of "Create"
+	-	Do the initial commit which will take quite a while
+	-	Click on "Publish" at top roight corner which will create a skeleton of the project on github
+	-	The button will now turn to "Sync" and then you can sync the files with github
+
+Creating a branch
+	-	Click on the create branch icon to create a new branch
+	-	Publish button at the top right to populate on the git site
