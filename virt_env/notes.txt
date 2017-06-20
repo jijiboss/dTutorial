@@ -1,0 +1,57 @@
+-	To create a new GIT repo
+
+		Use "Add" instead of "Create"
+		
+-	How URLs and Views link each other
+	proto01/urls.py 
+
+		url(r'^pork02/', include('pork02.urls')),
+
+	will reference pork02/urls.py
+
+		url(r'^$', views.index, name='index'),
+		
+	which will reference views.py which will generate the web page
+
+		def index(request)
+
+-	How to add pages
+
+	Create new views in <app>\views.py
+	
+		def supplier_detail(request, supplier_id):
+			return HttpResponse("<h2>Details for supplier: " + str(supplier_id) + "</h2>")
+	
+	and call it from urls.py
+	
+		#/pork02/2/
+		url(r'^(?P<supplier_id>[0-9]+)/$', views.supplier_detail, name='supplier_detail'),
+		
+-	How to create the Models
+
+		pork02\models.py
+
+	then need to let proto01\settings.py know the new app so
+
+		'pork02.apps.Pork02Config',
+
+	then make migrations and migrate
+
+		python manage.py makemigrations
+		python manage.py migrate
+
+-	How to create superuser
+
+		python manage.py createsuperuser
+
+-	How to start DB shell
+
+		python manage.py shell
+		from <app>.models import <models>
+
+-	How to populate DB with CSV
+
+		Modify paths in the load_xx.py file
+		Make sure to escape the "\U" (as in "C:\Users") with double slash.
+		Also make sure the path points to the folder with the manage.py file.
+		"python load_xx.py" to run the script
