@@ -1,7 +1,3 @@
--	To create a new GIT repo
-
-		Use "Add" instead of "Create"
-		
 -	How URLs and Views link each other
 	proto01/urls.py 
 
