@@ -1,6 +1,6 @@
 # My ignore list
 virt_env\git_notes.txt
-virt_env\notes.txt
+notes.txt
 
 # Windows image file caches
 Thumbs.db
