@@ -1,3 +1,7 @@
+# My ignore list
+git_notes.txt
+notes.txt
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
