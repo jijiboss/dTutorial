@@ -1,10 +1,10 @@
-{% if all_suppliers %}
-	<h1>List of Suppliers</h1>
+{% if all_products %}
+	<h1>List of Products</h1>
 	<ul>
-		{% for supp in all_suppliers %}
-		<li><a href="/pork02/{{supp.id}}/">{{ supp.supplier }}</a></li>
+		{% for prod in all_products %}
+		<li><a href="/pork02/{{prod.prod_code_supplier}}/">{{ prod.item_supplier }}</a></li>
 		{% endfor %}
 	</ul>
 {% else %}
-	<h3>No suppliers in the database</h3>
+	<h3>No products in the database</h3>
 {% endif %}
