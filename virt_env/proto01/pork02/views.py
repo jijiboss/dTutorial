@@ -1,7 +1,10 @@
-from django.http import HttpResponse, Http404
+"""#HttpResponse replaced by "render"
+#Http404 replaced by "get_object_or_404"
+from django.http import HttpResponse, Http404"""
+
 '''#replaced by shortcuts.render
 from django.template import loader'''
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Suppliers, Products
 
 def index(request):
@@ -38,9 +41,12 @@ def supplier_detail(request, supplier_id):
 
 def product_detail(request, product_id):
 	#Check the database if the ID exists or not first
+	"""
 	try:
 		prod = Products.objects.get(pk=product_id)
 	except Products.DoesNotExist:
 		raise Http404("Product doe snot existo")
+	"""
+	prod = get_object_or_404 (Products, pk=product_id)
 	#this calls details.html passing the "prod" variable
 	return render(request, 'pork02/detail.html', {'prod':prod})
