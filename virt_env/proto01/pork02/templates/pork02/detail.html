@@ -1,115 +1,46 @@
-<!-- Loads the path to your static files-->
-{% load staticfiles %}
-<!-- Bootstrap link from the video.
- 	The order in which these files are imported matters.
-The latter will overwrite the former.-->
-<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<!-- Font from Gogle API -->
-<link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet" type="text/css">
-<!-- Mystylesheet -->
-<link rel="stylesheet" type="text/css" href="{% static 'pork02/style.css' %}"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+{% extends 'pork02/base.html' %}
+{% block myTitle %}Porky Details{% endblock %}
+{% block myBody %}
+	<html>
+	<h1> Product Details</h1>
+	{{ prod }}
 
+	{% if error_message %}
+	  <p><strong>Error! {{ error_message }}</strong></p>
+	{% endif %}
 
-<nav class="navbar navbar-inverse"> <!-- "inverse" makes it dark whereas "default' makes it white"-->
-	<div class="container-fluid">
-		<!-- Clickable logo at the top left corner. -->
-		<div class="navbar-header">
-			<!-- make the "topNavBar" visible or invisble via toggle -->
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
-				<!-- Makes that bar menu show up at the top right corner when the winow is smallified enough.
-						<span class="icon-bar"></span>
-				draws each line so yiou can have as many or as little as you want.-->
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="{% url 'pork02:index' %}">Link here</a>
-		</div>
+	<!--call the "favorite" URL pattern in the "pork02" name space passing the "prod_code_suppier"
+	  The point in the video was to list out the songs within the specific Album.
+	  In my example, there are no specific "parent" model, if anything I suppose "Spplier" would be that.
+	  So for now, i will simply list out all products.
+	-->
 
-		<!-- Items -->
-		<!-- glyphicon can be found at http://getbootstrap.com/components/ -->
-		<div class="collapse navbar-collapse" id="topNavBar"> <!-- makes the navbar items collapsible as the UI is resized -->
+	<!-- When the form is clicked on, call the "favorite" passing the prod_code_supplier-->
+	<form action="{% url 'pork02:favorite' prod.prod_code_supplier %}" method="post">
+	  {% csrf_token %}
 
-			<!-- The next two buttons in the nav bar -->
-			<ul class="nav navbar-nav">
-				<li class="">
-					<a href="{% url 'pork02:index' %}">
-						<span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span>&nbsp;Products
-					</a>
-				</li>
-				<li class="">
-					<a href="{% url 'pork02:index' %}">
-						<span class="glyphicon glyphicon-yen" aria-hidden="true"></span>&nbsp;Orders
-					</a>
-				</li>
-			</ul>
-			<!-- Th Search field and button -->
-			<form class="navbar-form navbar-left" role="search" method="get" action="#">
-				<div class="form-group">
-					<input type="text" class="form-control" name="q" value="">
-				</div>
-				<button type="submit" class="btn btn-default"> Search</button>
-			</form>
-
-			<ul class="nav navbar-nav navbar-right">
-				<li class="">
-					<a href="{% url 'pork02:index' %}">
-						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add Products
-					</a>
-				</li>
-				<li class="">
-					<a href="{% url 'pork02:index' %}">
-						<span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;Logout
-					</a>
-				</li>
-			</ul>
-
-		</div>
-
-	</div>
-</nav>
-
-<html>
-<h1> Product Details</h1>
-{{ prod }}
-
-{% if error_message %}
-  <p><strong>Error! {{ error_message }}</strong></p>
-{% endif %}
-
-<!--call the "favorite" URL pattern in the "pork02" name space passing the "prod_code_suppier"
-  The point in the video was to list out the songs within the specific Album.
-  In my example, there are no specific "parent" model, if anything I suppose "Spplier" would be that.
-  So for now, i will simply list out all products.
--->
-
-<!-- When the form is clicked on, call the "favorite" passing the prod_code_supplier-->
-<form action="{% url 'pork02:favorite' prod.prod_code_supplier %}" method="post">
-  {% csrf_token %}
-
-  <!--Loop through every single product_code_supplier
-    This is not possible as long as this HTML file is called with a prod object that references one specific product.
-    So something like
-      { for items in prod.prod_code_supplier.values() }
-    is like calling
-      { for items in prod_code_supplier.prod_code_supplier.values() }
-  -->
-  <!-- { for items in prod.prod_code_supplier_set.all } -->
-  <!-- { for items in prod.prod_code_supplier.all } -->
-      <!--For each product code, do two things
-          1. Create a radio button input type
-          2. Put a label next to it so users know which code they are clicking on-->
-      <!-- input type="radio" id="items{{ forloop.counter }}" name="items" value="{{ items.prod_code_supplier }}" /> -->
-      <input type="radio" id="1" name="items" value="{{ prod.prod_code_supplier }}" />
-      <label for="items1">
-         {{prod.item_supplier}}
-         {% if prod.is_favorite %}
-            <img height="2%" width="2%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Red_star.svg/255px-Red_star.svg.png" />
-         {% endif %}
-     </label><br>
-  <!-- { endfor } -->
-  <input type="submit" value="Favorite">
-</form>
-</html>
+	  <!--Loop through every single product_code_supplier
+	    This is not possible as long as this HTML file is called with a prod object that references one specific product.
+	    So something like
+	      { for items in prod.prod_code_supplier.values() }
+	    is like calling
+	      { for items in prod_code_supplier.prod_code_supplier.values() }
+	  -->
+	  <!-- { for items in prod.prod_code_supplier_set.all } -->
+	  <!-- { for items in prod.prod_code_supplier.all } -->
+	      <!--For each product code, do two things
+	          1. Create a radio button input type
+	          2. Put a label next to it so users know which code they are clicking on-->
+	      <!-- input type="radio" id="items{{ forloop.counter }}" name="items" value="{{ items.prod_code_supplier }}" /> -->
+	      <input type="radio" id="1" name="items" value="{{ prod.prod_code_supplier }}" />
+	      <label for="items1">
+	         {{prod.item_supplier}}
+	         {% if prod.is_favorite %}
+	            <img height="2%" width="2%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Red_star.svg/255px-Red_star.svg.png" />
+	         {% endif %}
+	     </label><br>
+	  <!-- { endfor } -->
+	  <input type="submit" value="Favorite">
+	</form>
+	</html>
+{% endblock %}
