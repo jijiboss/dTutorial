@@ -1,0 +1,46 @@
+{% extends 'pork02/base.html' %}
+{% block myTitle %}Porky Details{% endblock %}
+{% block myBody %}
+	<html>
+	<h1> Product Details</h1>
+	{{ prod }}
+
+	{% if error_message %}
+	  <p><strong>Error! {{ error_message }}</strong></p>
+	{% endif %}
+
+	<!--call the "favorite" URL pattern in the "pork02" name space passing the "prod_code_suppier"
+	  The point in the video was to list out the songs within the specific Album.
+	  In my example, there are no specific "parent" model, if anything I suppose "Spplier" would be that.
+	  So for now, i will simply list out all products.
+
+	 When the form is clicked on, call the "favorite" passing the prod_code_supplier-->
+	<form action="{% url 'pork02:favorite' prod.prod_code_supplier %}" method="post">
+
+	  {% csrf_token %}
+
+	  <!--Loop through every single product_code_supplier
+	    This is not possible as long as this HTML file is called with a prod object that references one specific product.
+	    So something like
+	      { for items in prod.prod_code_supplier.values() }
+	    is like calling
+	      { for items in prod_code_supplier.prod_code_supplier.values() }
+	  -->
+	  <!-- { for items in prod.prod_code_supplier_set.all } -->
+	  <!-- { for items in prod.prod_code_supplier.all } -->
+	      <!--For each product code, do two things
+	          1. Create a radio button input type
+	          2. Put a label next to it so users know which code they are clicking on-->
+	      <!-- input type="radio" id="items{{ forloop.counter }}" name="items" value="{{ items.prod_code_supplier }}" /> -->
+	      <input type="radio" id="1" name="items" value="{{ prod.prod_code_supplier }}" />
+	      <label for="items1">
+	         {{prod.item_supplier}}
+	         {% if prod.is_favorite %}
+	            <img height="2%" width="2%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Red_star.svg/255px-Red_star.svg.png" />
+	         {% endif %}
+	     </label><br>
+	  <!-- { endfor } -->
+	  <input type="submit" value="Favorite">
+	</form>
+	</html>
+{% endblock %}

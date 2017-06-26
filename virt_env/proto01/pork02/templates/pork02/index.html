@@ -1,19 +1,14 @@
 {% extends 'pork02/base.html' %}
 
 {% block myBody %}
-	{% if all_products %}
+	<!-- { if all_products } -->
+	<!-- #"return Products.objects.all()"" in views.py returns an object called "object_list".
+ 			ListView returns object_list by defualt -->
+	{% if object_list %}
 		<h1>List of Products</h1>
 		<ul>
-			{% for prod in all_products %}
-			<!--
-			<li><a href="/pork02/{{prod.prod_code_supplier}}/">{{ prod.item_supplier }}</a></li>
-
-			Replaced by the line below which externalizes the URL to the ursl.py file.
-			'product_detail' is the "name" element from urls.py file.
-
-			<li><a href="{% url 'pork02:product_detail' prod.prod_code_supplier %}">{{ prod.item_supplier }}</a></li>
-		-->
-			<li><a href="{% url 'pork02:favorite' prod.prod_code_supplier %}">{{ prod.item_supplier }}</a></li>
+			{% for prod in object_list %}
+				<li><a href="{% url 'pork02:product_detail' prod.prod_code_supplier %}">{{ prod.item_supplier }}</a></li>
 			{% endfor %}
 		</ul>
 	{% else %}

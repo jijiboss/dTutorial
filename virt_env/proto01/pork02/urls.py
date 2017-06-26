@@ -16,14 +16,11 @@ app_name = 'pork02'
 
 urlpatterns = [
 	#/pork02/
-	#calls "index" method in views.py
-    url(r'^$', views.index, name='index'),
+	#invokes the IndexView class and passes it as a view
+    url(r'^$', views.IndexView.as_view(), name='index'),
 
 	#/pork02/81030/
-	#calls "supplier_detail" method in views.py passing numeric <supplier_id> as the argument (?P<>)
-	url(r'^(?P<product_id>[0-9]+)/$', views.product_detail, name='product_detail'),
-
-	#/pork02/81030/favorite
-	#passes the product_id to the "favorite" URL
-	url(r'^(?P<product_id>[0-9]+)/favorite/$', views.favorite, name='favorite'),
+	#invokes "DetailView"class in views.py passing numeric <product_code as pk> as the argument (?P<>)
+	#the DetailView expects a primarykey so use pk
+	url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='product_detail'),
 ]
