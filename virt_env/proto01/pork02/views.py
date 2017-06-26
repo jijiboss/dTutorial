@@ -50,3 +50,23 @@ def product_detail(request, product_id):
 	prod = get_object_or_404 (Products, pk=product_id)
 	#this calls details.html passing the "prod" variable
 	return render(request, 'pork02/detail.html', {'prod':prod})
+
+def favorite(request, product_id):
+	#Get the specific Products object for the given product_id and assign to "prod"
+	prod = get_object_or_404 (Products, pk=product_id)
+	try:
+		#Store the supplier prouct code that was selected by the user into "selected_prod" variable.
+		#becaus ein my eversion that product ID was passed already I don't need to convert liek in the video.
+		#selected_prod = prod.prod_code_supplier_set.get(pk=request.POST['prod_code_supplier'])
+		selected_prod = prod.prod_code_supplier
+	except(KeyError, Products.DoesNotExist):
+		#If error then show the product detail page for this product along with the error.
+		render(request, 'pork02/detail.html', {
+			'prod':prod,
+			'error_message': "You did not select a valid product."
+		})
+	else:
+		#If no erro then update this specific product in the database and take the user back to the detail page
+		prod.is_favorite = True
+		prod.save()
+		return render(request, 'pork02/detail.html', {'prod':prod})

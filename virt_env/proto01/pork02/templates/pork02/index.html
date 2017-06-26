@@ -7,8 +7,10 @@
 
 		Replaced by the line below which externalizes the URL to the ursl.py file.
 		'product_detail' is the "name" element from urls.py file.
-		-->
+
 		<li><a href="{% url 'pork02:product_detail' prod.prod_code_supplier %}">{{ prod.item_supplier }}</a></li>
+	-->
+		<li><a href="{% url 'pork02:favorite' prod.prod_code_supplier %}">{{ prod.item_supplier }}</a></li>
 		{% endfor %}
 	</ul>
 {% else %}
