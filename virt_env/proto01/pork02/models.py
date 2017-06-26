@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 #Supplier table
 class Suppliers(models.Model):
@@ -16,9 +17,15 @@ class Products(models.Model):
     item_sumitomo = models.CharField(max_length=75) #Sumitomo item description
     is_favorite = models.BooleanField(default=False)
 
+    #This method is called whwnever a new Products entry has been created.
+    #It will call "product_detail" passing pk ("kwargs" = "keyword args")
+    #Basically it will load the product detail page for the new product just created
+    def get_absolute_url(self):
+        return reverse('pork02:product_detail', kwargs={'pk':self.pk})
+
     def __str__(self):
         return str(self.supplier) + ' (' + str(self.prod_code_supplier) + ')' + ' - ' + self.item_supplier
-		
+
 #Order table
 class Orders(models.Model):
     order_week = models.CharField(max_length=12)

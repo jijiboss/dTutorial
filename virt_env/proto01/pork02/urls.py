@@ -23,4 +23,8 @@ urlpatterns = [
 	#invokes "DetailView"class in views.py passing numeric <product_code as pk> as the argument (?P<>)
 	#the DetailView expects a primarykey so use pk
 	url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='product_detail'),
+
+	#/pork02/products/add
+    url(r'products/add/$', views.ProductsCreate.as_view(), name='product-add'),
+
 ]
