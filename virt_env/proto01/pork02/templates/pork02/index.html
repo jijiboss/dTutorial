@@ -6,23 +6,34 @@
  			ListView returns object_list by defualt -->
 	{% if object_list %}
 		<h1>List of Products</h1>
-		<ul>
-			{% for prod in object_list %}
-				<!-- Details -->
-<!--				<li><a href="{% url 'pork02:product_detail' prod.prod_code_supplier %}">{{ prod.item_supplier }}</a></li> -->
-				<li><a href="{% url 'pork02:product_detail' prod.prod_code_supplier %}" class="btn btn-primary btn-sm">{{ prod.item_supplier }}</a></li>
+		<div>
+				{% for prod in object_list %}
+				<div>
+					<!-- Details -->
+	<!--				<li><a href="{% url 'pork02:product_detail' prod.prod_code_supplier %}">{{ prod.item_supplier }}</a></li> -->
+					<a href="{% url 'pork02:product_detail' prod.prod_code_supplier %}" class="btn btn-primary btn-sm">{{ prod.item_supplier }}</a>
 
-				<!-- Delete -->
-				<form action="#" method="post" style="display: inline;">
-					{% csrf_token %}
-					<input type="hidden" name="prod.prod_code_supplier" value="{{ prod.prod_code_supplier }}"/>
-					<button type="submit" class="btn btn-default btn-sm">
-						<span class="glyphicon glyphicon-trash"></span>
-					</button>
-				</form>
-				
-			{% endfor %}
-		</ul>
+					<!-- Update -->
+					<form action="{% url 'pork02:product-update' prod.prod_code_supplier %}" method="post" style="display: inline;">
+						{% csrf_token %}
+						<input type="hidden" name="prod.prod_code_supplier" value="{{ prod.prod_code_supplier }}"/>
+						<button type="submit" class="btn btn-default btn-sm">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</button>
+					</form>
+
+					<!-- Delete -->
+					<form action="#" method="post" style="display: inline;">
+						{% csrf_token %}
+						<input type="hidden" name="prod.prod_code_supplier" value="{{ prod.prod_code_supplier }}"/>
+						<button type="submit" class="btn btn-default btn-sm">
+							<span class="glyphicon glyphicon-trash"></span>
+						</button>
+					</form>
+
+				</div>
+				{% endfor %}
+			</div>
 	{% else %}
 		<h3>No products in the database</h3>
 	{% endif %}

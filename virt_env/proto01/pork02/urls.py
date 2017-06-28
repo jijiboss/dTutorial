@@ -28,9 +28,9 @@ urlpatterns = [
     url(r'products/add/$', views.ProductsCreate.as_view(), name='product-add'),
 
 	#/pork02/products/81030
-    url(r'products/?P<pk>[0-9]+/$', views.ProductsUpdate.as_view(), name='product-update'),
+    url(r'products/(?P<pk>[0-9]+)/$', views.ProductsUpdate.as_view(), name='product-update'),
 
 	#/pork02/products/81030/delete
-    url(r'products/?P<pk>[0-9]+/delete/$', views.ProductsDelete.as_view(), name='product-delete'),
+    url(r'products/(?P<pk>[0-9]+)/delete/$', views.ProductsDelete.as_view(), name='product-delete'),
 
 ]
